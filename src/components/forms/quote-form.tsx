@@ -18,12 +18,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { serviceOptions, urgencyOptions } from "@/data/site";
+import { services, serviceOptions, urgencyOptions } from "@/data/site";
 import { quoteSchema, type QuoteFormValues } from "@/lib/form-schemas";
+
+function resolveServiceValue(rawValue: string | null) {
+  if (!rawValue) {
+    return "";
+  }
+
+  const resolvedService = services.find(
+    (service) => service.slug === rawValue || service.title === rawValue,
+  );
+
+  return resolvedService?.title ?? "";
+}
 
 export function QuoteForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const selectedService = resolveServiceValue(searchParams.get("servizio"));
   const {
     register,
     handleSubmit,
@@ -36,7 +49,7 @@ export function QuoteForm() {
       name: "",
       phone: "",
       email: "",
-      service: "",
+      service: selectedService,
       urgency: "",
       area: "",
       description: "",
@@ -45,15 +58,16 @@ export function QuoteForm() {
   });
 
   useEffect(() => {
-    const selectedService = searchParams.get("servizio");
-
     if (
       selectedService &&
       serviceOptions.some((option) => option.value === selectedService)
     ) {
-      setValue("service", selectedService, { shouldValidate: true });
+      setValue("service", selectedService, {
+        shouldValidate: true,
+        shouldDirty: false,
+      });
     }
-  }, [searchParams, setValue]);
+  }, [selectedService, setValue]);
 
   const onSubmit = async (values: QuoteFormValues) => {
     const response = await fetch("/api/quote", {

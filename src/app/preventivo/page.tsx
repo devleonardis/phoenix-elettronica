@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
-import { ArrowLeft } from "lucide-react";
 
 import { AnimatedSection } from "@/components/animated-section";
+import { BackOrHomeLink } from "@/components/back-or-home-link";
 import { QuoteForm } from "@/components/forms/quote-form";
 import { JsonLd } from "@/components/json-ld";
 import { SectionTitle } from "@/components/section-title";
@@ -30,13 +29,7 @@ export default function QuotePage() {
         <Card className="w-full border-white/10 bg-white shadow-[0_28px_80px_-28px_rgba(15,23,42,0.45)]">
           <CardContent className="p-6 sm:p-8">
             <div className="mb-6 flex items-center justify-between gap-4">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <ArrowLeft className="size-4" />
-                Torna al sito
-              </Link>
+              <BackOrHomeLink />
             </div>
             <SectionTitle
               title="Richiedi il preventivo"

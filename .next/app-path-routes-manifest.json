@@ -5,7 +5,6 @@
   "/api/contact/route": "/api/contact",
   "/api/quote/route": "/api/quote",
   "/apple-icon/route": "/apple-icon",
-  "/chi-siamo/page": "/chi-siamo",
   "/contatti/page": "/contatti",
   "/icon.svg/route": "/icon.svg",
   "/manifest.webmanifest/route": "/manifest.webmanifest",

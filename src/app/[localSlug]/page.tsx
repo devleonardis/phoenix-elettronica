@@ -88,7 +88,12 @@ export default async function LocalLandingPage({ params }: LocalLandingPageProps
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary">
-                  <Link href="/preventivo">
+                  <Link
+                    href={{
+                      pathname: "/preventivo",
+                      query: { servizio: page.serviceType },
+                    }}
+                  >
                     Richiedi preventivo
                     <ArrowRight className="size-4" />
                   </Link>
@@ -201,7 +206,14 @@ export default async function LocalLandingPage({ params }: LocalLandingPageProps
                 <Link href={company.mobileHref}>Chiama ora</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/preventivo">Richiedi preventivo</Link>
+                <Link
+                  href={{
+                    pathname: "/preventivo",
+                    query: { servizio: page.serviceType },
+                  }}
+                >
+                  Richiedi preventivo
+                </Link>
               </Button>
             </div>
             <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-6 text-sm leading-7 text-white/72">

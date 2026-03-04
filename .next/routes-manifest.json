@@ -68,12 +68,6 @@
       "namedRegex": "^/apple\\-icon(?:/)?$"
     },
     {
-      "page": "/chi-siamo",
-      "regex": "^/chi\\-siamo(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/chi\\-siamo(?:/)?$"
-    },
-    {
       "page": "/contatti",
       "regex": "^/contatti(?:/)?$",
       "routeKeys": {},

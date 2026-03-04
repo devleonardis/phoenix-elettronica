@@ -29,6 +29,7 @@
 
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -50,5 +51,48 @@
 
   .text-pretty {
     text-wrap: pretty;
+  }
+
+  .map-pin-marker {
+    position: relative;
+    width: 28px;
+    height: 28px;
+  }
+
+  .map-pin-pulse {
+    position: absolute;
+    inset: 2px;
+    border-radius: 9999px;
+    background: rgba(249, 115, 22, 0.28);
+    animation: map-pin-pulse 2.2s ease-out infinite;
+  }
+
+  .map-pin-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.96);
+    border-radius: 9999px;
+    background: #f97316;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.18);
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes map-pin-pulse {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.9;
+    }
+
+    70% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 }

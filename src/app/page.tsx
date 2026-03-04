@@ -13,7 +13,6 @@ import {
 import { AnimatedSection } from "@/components/animated-section";
 import { CTAButton } from "@/components/cta-button";
 import { JsonLd } from "@/components/json-ld";
-import { QuickCtaBand } from "@/components/quick-cta-band";
 import { SectionTitle } from "@/components/section-title";
 import { ServiceCard } from "@/components/service-card";
 import { TestimonialCard } from "@/components/testimonial-card";
@@ -71,9 +70,6 @@ export default function HomePage() {
         <div className="container relative pb-16 pt-32 sm:pb-24 sm:pt-36">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="max-w-2xl">
-              <Badge variant="dark" className="mb-6">
-                Bari e provincia - Impianti elettrici ed elettronici
-              </Badge>
               <h1 className="text-balance text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
                 Impianti, automazioni e manutenzioni con interventi rapidi e soluzioni chiare.
               </h1>
@@ -140,12 +136,6 @@ export default function HomePage() {
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
-          </div>
-          <div className="mt-8">
-            <QuickCtaBand
-              title="Hai gia' capito cosa ti serve?"
-              description="Chiama subito oppure lascia una richiesta rapida di preventivo."
-            />
           </div>
         </div>
       </AnimatedSection>
@@ -230,12 +220,6 @@ export default function HomePage() {
             {testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.name} {...testimonial} />
             ))}
-          </div>
-          <div className="mt-8">
-            <QuickCtaBand
-              title="Preferisci parlare subito con noi?"
-              description="Una chiamata rapida spesso basta per capire tempi, urgenza e prossimo passo."
-            />
           </div>
         </div>
       </AnimatedSection>

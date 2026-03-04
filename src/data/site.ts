@@ -12,6 +12,11 @@ export const company = {
   email: siteConfig.nap.email,
   emailHref: siteConfig.nap.emailHref,
   address: "Via Papa Innocenzo XII, 19 - 70124 Bari (BA)",
+  mapsHref: `https://maps.google.com/?q=${encodeURIComponent("Via Papa Innocenzo XII, 19 - 70124 Bari (BA)")}`,
+  coordinates: {
+    lat: 41.1025334,
+    lng: 16.8635539,
+  },
   vat: siteConfig.nap.vat,
   siteUrl: siteConfig.domain,
 };
@@ -19,7 +24,6 @@ export const company = {
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/servizi", label: "Servizi" },
-  { href: "/chi-siamo", label: "Chi siamo" },
   { href: "/contatti", label: "Contatti" },
 ];
 
@@ -252,7 +256,7 @@ export const contactOptions = [
   {
     title: "Sede",
     value: company.address,
-    href: `https://maps.google.com/?q=${encodeURIComponent(company.address)}`,
+    href: company.mapsHref,
     note: "Bari, zona servita con interventi in citta' e provincia.",
     icon: "map-pin",
   },
