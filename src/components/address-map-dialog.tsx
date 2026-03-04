@@ -1,20 +1,17 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import mapboxgl from "mapbox-gl";
 import Link from "next/link";
-import { ExternalLink, MapPinned, Sparkles, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ExternalLink, MapPinned, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { company } from "@/data/site";
 
-const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+const googleEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(company.address)}&z=17&output=embed`;
 
 export function AddressMapDialog() {
   const [isOpen, setIsOpen] = useState(false);
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -37,58 +34,6 @@ export function AddressMapDialog() {
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen || !mapContainerRef.current || !mapboxToken || mapRef.current) {
-      return;
-    }
-
-    mapboxgl.accessToken = mapboxToken;
-
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/standard",
-      center: [company.coordinates.lng, company.coordinates.lat],
-      zoom: 14.2,
-      pitch: 18,
-      bearing: 12,
-      antialias: true,
-      config: {
-        basemap: {
-          theme: "faded",
-          lightPreset: "dusk",
-        },
-      },
-    });
-
-    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), "top-right");
-
-    const markerElement = document.createElement("div");
-    markerElement.className = "map-pin-marker";
-    markerElement.innerHTML = '<span class="map-pin-pulse"></span><span class="map-pin-core"></span>';
-
-    new mapboxgl.Marker({ element: markerElement, anchor: "bottom" })
-      .setLngLat([company.coordinates.lng, company.coordinates.lat])
-      .addTo(map);
-
-    map.on("load", () => {
-      map.easeTo({
-        center: [company.coordinates.lng, company.coordinates.lat],
-        zoom: 17.15,
-        pitch: 68,
-        bearing: -34,
-        duration: 3200,
-        easing: (t) => 1 - Math.pow(1 - t, 3),
-      });
-    });
-
-    mapRef.current = map;
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
-  }, [isOpen]);
-
   return (
     <>
       <button
@@ -99,7 +44,7 @@ export function AddressMapDialog() {
         <p className="text-sm font-medium text-phoenix-600">Indirizzo</p>
         <p className="mt-2 text-lg font-semibold">{company.address}</p>
         <p className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-phoenix-600">
-          Apri mappa 3D
+          Apri mappa
           <MapPinned className="size-4" />
         </p>
       </button>
@@ -132,11 +77,7 @@ export function AddressMapDialog() {
                     <CardContent className="p-4 sm:p-6">
                       <div className="mb-5 flex items-start justify-between gap-4">
                         <div>
-                          <div className="inline-flex items-center gap-2 rounded-full border border-phoenix-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-phoenix-700">
-                            <Sparkles className="size-3.5" />
-                            Vista 3D
-                          </div>
-                          <h2 className="mt-4 text-2xl font-semibold sm:text-3xl">Sede Phoenix Elettronica</h2>
+                          <h2 className="text-2xl font-semibold sm:text-3xl">Sede Phoenix Elettronica</h2>
                           <p className="mt-2 max-w-2xl text-muted-foreground">{company.address}</p>
                         </div>
                         <button
@@ -148,37 +89,24 @@ export function AddressMapDialog() {
                           <X className="size-5" />
                         </button>
                       </div>
-
-                      {mapboxToken ? (
-                        <div className="overflow-hidden rounded-[1.75rem] border border-border/70 bg-charcoal">
-                          <div className="pointer-events-none absolute hidden" />
-                          <div className="relative">
-                            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-[#f7f3ed]/18 to-transparent" />
-                            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-t from-[#020617]/55 to-transparent" />
-                            <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-2xl border border-white/12 bg-charcoal/70 px-4 py-3 text-white backdrop-blur">
-                              <p className="text-xs uppercase tracking-[0.2em] text-white/60">Bari</p>
-                              <p className="mt-1 text-sm font-semibold">Via Papa Innocenzo XII, 19</p>
-                            </div>
-                            <div ref={mapContainerRef} className="h-[62vh] min-h-[460px] w-full" />
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="rounded-[1.75rem] border border-border/70 bg-secondary/60 p-8">
-                          <p className="text-lg font-semibold">Mappa 3D non configurata</p>
-                          <p className="mt-3 text-muted-foreground">
-                            Per attivarla serve impostare `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`.
-                          </p>
-                          <Link
-                            href={company.mapsHref}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-phoenix-600"
-                          >
-                            Apri comunque su Google Maps
-                            <ExternalLink className="size-4" />
-                          </Link>
-                        </div>
-                      )}
+                      <div className="overflow-hidden rounded-[1.75rem] border border-border/70 bg-white">
+                        <iframe
+                          src={googleEmbedUrl}
+                          title="Mappa sede Phoenix Elettronica"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          className="h-[62vh] min-h-[460px] w-full"
+                        />
+                      </div>
+                      <Link
+                        href={company.mapsHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-phoenix-600"
+                      >
+                        Apri su Google Maps
+                        <ExternalLink className="size-4" />
+                      </Link>
                     </CardContent>
                   </Card>
                 </motion.div>

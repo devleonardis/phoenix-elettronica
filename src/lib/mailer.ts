@@ -32,7 +32,7 @@ function createTransporter() {
 }
 
 function recipient() {
-  return process.env.MAIL_TO ?? "simonedele03@gmail.com";
+  return process.env.MAIL_TO ?? "emilio.deleonardis@gmail.com";
 }
 
 function sender() {

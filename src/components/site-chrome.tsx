@@ -13,16 +13,16 @@ type SiteChromeProps = {
 
 export function SiteChrome({ children }: SiteChromeProps) {
   const pathname = usePathname();
-  const isMinimalQuotePage = pathname === "/preventivo";
+  const isMinimalQuoteFlow = pathname.startsWith("/preventivo");
 
-  if (isMinimalQuotePage) {
+  if (isMinimalQuoteFlow) {
     return <main className="overflow-x-clip">{children}</main>;
   }
 
   return (
     <>
       <Navbar />
-      <main className="overflow-x-clip pb-24 md:pb-0">{children}</main>
+      <main className="overflow-x-clip pb-16 md:pb-0">{children}</main>
       <Footer />
       <CallBar />
     </>

@@ -22,7 +22,7 @@ Il progetto usa route backend Next.js e SMTP per inviare le richieste dei form.
 
 1. Crea `.env.local` partendo da `.env.example`
 2. Inserisci i dati SMTP reali
-3. Per test, il destinatario predefinito e' `simonedele03@gmail.com`
+3. Per test, il destinatario predefinito e' `emilio.deleonardis@gmail.com`
 
 Esempio minimo:
 

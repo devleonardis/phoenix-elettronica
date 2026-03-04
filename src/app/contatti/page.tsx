@@ -29,10 +29,10 @@ export default function ContactsPage() {
           { name: "Contatti", path: "/contatti" },
         ])}
       />
-      <AnimatedSection className="container py-32 sm:py-36">
+      <AnimatedSection className="container py-28 sm:py-32">
         <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr]">
           <Card className="border-border/70 bg-secondary/60">
-            <CardContent className="space-y-8 p-8">
+            <CardContent className="space-y-6 p-6 sm:p-8">
               <div className="space-y-5">
                 {quickContacts.map((item) => {
                   const Icon = iconMap[item.icon];
@@ -41,14 +41,16 @@ export default function ContactsPage() {
                     <Link
                       key={item.title}
                       href={item.href}
-                      className="flex items-start gap-4 rounded-3xl border border-border/70 bg-white p-5 transition-transform duration-300 hover:-translate-y-1"
+                      className="flex min-w-0 items-start gap-4 rounded-3xl border border-border/70 bg-white p-5 transition-transform duration-300 hover:-translate-y-1"
                     >
                       <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-phoenix-50 text-phoenix-600">
                         <Icon className="size-5" />
                       </div>
-                      <div className="space-y-1">
+                      <div className="min-w-0 space-y-1">
                         <p className="text-sm font-medium text-phoenix-600">{item.title}</p>
-                        <p className="text-lg font-semibold text-foreground">{item.value}</p>
+                        <p className="break-all text-lg font-semibold leading-tight text-foreground">
+                          {item.value}
+                        </p>
                       </div>
                     </Link>
                   );
