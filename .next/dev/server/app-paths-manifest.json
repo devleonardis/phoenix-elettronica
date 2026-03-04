@@ -1,5 +1,9 @@
 {
+  "/api/quote/route": "app/api/quote/route.js",
   "/apple-icon/route": "app/apple-icon/route.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/page": "app/page.js",
+  "/preventivo/grazie/page": "app/preventivo/grazie/page.js",
+  "/preventivo/page": "app/preventivo/page.js",
   "/servizi/page": "app/servizi/page.js"
 }

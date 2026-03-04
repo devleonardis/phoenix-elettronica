@@ -27,7 +27,7 @@ Il progetto usa route backend Next.js e SMTP per inviare le richieste dei form.
 Esempio minimo:
 
 ```bash
-cp .env.example .env.local
+cp .env.local .env.local
 ```
 
 Variabili richieste:
