@@ -45,7 +45,6 @@ export async function sendContactEmail(data: ContactFormValues) {
   await transporter.sendMail({
     from: sender(),
     to: recipient(),
-    replyTo: data.email,
     subject: `[Contatti] ${data.service} - ${data.name}`,
     text: [
       "Nuova richiesta dal form contatti",
@@ -76,7 +75,6 @@ export async function sendQuoteEmail(data: QuoteFormValues) {
   await transporter.sendMail({
     from: sender(),
     to: recipient(),
-    replyTo: data.email,
     subject: `[Preventivo] ${data.service} - ${data.name}`,
     text: [
       "Nuova richiesta di preventivo",
