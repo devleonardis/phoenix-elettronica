@@ -105,7 +105,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/kidnardi/WebstormProjects/phoenix-elettronica",
+    "outputFileTracingRoot": "/Users/simonedeleonardis/IdeaProjects/phoenix-elettronica",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -162,7 +162,7 @@ self.__SERVER_FILES_MANIFEST={
       "proxyPrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 11,
+      "cpus": 9,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -298,11 +298,11 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "/Users/kidnardi/WebstormProjects/phoenix-elettronica"
+      "root": "/Users/simonedeleonardis/IdeaProjects/phoenix-elettronica"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/Users/kidnardi/WebstormProjects/phoenix-elettronica",
+  "appDir": "/Users/simonedeleonardis/IdeaProjects/phoenix-elettronica",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

@@ -315,10 +315,6 @@ body {
   }
 }
 
-.pointer-events-none {
-  pointer-events: none;
-}
-
 .fixed {
   position: fixed;
 }
@@ -345,10 +341,6 @@ body {
   right: 2rem;
 }
 
-.bottom-0 {
-  bottom: 0;
-}
-
 .bottom-2 {
   bottom: .5rem;
 }
@@ -365,20 +357,8 @@ body {
   left: .75rem;
 }
 
-.left-4 {
-  left: 1rem;
-}
-
 .top-0 {
   top: 0;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.z-10 {
-  z-index: 10;
 }
 
 .z-40 {
@@ -412,10 +392,6 @@ body {
 
 .mt-0\.5 {
   margin-top: .125rem;
-}
-
-.mt-1 {
-  margin-top: .25rem;
 }
 
 .mt-10 {
@@ -526,14 +502,6 @@ body {
 
 .h-12 {
   height: 3rem;
-}
-
-.h-24 {
-  height: 6rem;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .h-9 {
@@ -900,10 +868,6 @@ body {
   background-color: rgb(17 19 21 / var(--tw-bg-opacity, 1));
 }
 
-.bg-charcoal\/70 {
-  background-color: #111315b3;
-}
-
 .bg-charcoal\/75 {
   background-color: #111315bf;
 }
@@ -963,26 +927,12 @@ body {
   background-color: #ffffff0d;
 }
 
-.bg-white\/80 {
-  background-color: #fffc;
-}
-
-.bg-gradient-to-b {
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
 
 .bg-hero-grid {
   background-image: linear-gradient(#ffffff0a 1px, #0000 1px), linear-gradient(90deg, #ffffff0a 1px, #0000 1px);
-}
-
-.from-\[\#020617\]\/55 {
-  --tw-gradient-from: #0206178c var(--tw-gradient-from-position);
-  --tw-gradient-to: #02061700 var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .from-charcoal {
@@ -1517,33 +1467,6 @@ body {
 
 .text-pretty {
   text-wrap: pretty;
-}
-
-.map-pin-marker {
-  width: 28px;
-  height: 28px;
-  position: relative;
-}
-
-.map-pin-pulse {
-  background: #f9731647;
-  border-radius: 9999px;
-  animation: 2.2s ease-out infinite map-pin-pulse;
-  position: absolute;
-  inset: 2px;
-}
-
-.map-pin-core {
-  background: #f97316;
-  border: 2px solid #fffffff5;
-  border-radius: 9999px;
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 4px #f973162e;
 }
 
 @keyframes map-pin-pulse {

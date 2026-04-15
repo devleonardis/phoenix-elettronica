@@ -5,6 +5,19 @@ import { serviceOptions, urgencyOptions } from "@/data/site";
 const serviceValues = serviceOptions.map((option) => option.value);
 const urgencyValues = urgencyOptions.map((option) => option.value);
 
+export const quoteAttachmentConfig = {
+  maxFiles: 5,
+  maxFileSize: 20 * 1024 * 1024,
+  acceptedMimeTypes: [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/heic",
+    "image/heif",
+  ],
+  acceptedFileExtensions: [".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif"],
+} as const;
+
 export const contactSchema = z.object({
   name: z.string().min(2, "Inserisci il nome"),
   phone: z.string().min(6, "Inserisci un numero valido"),
@@ -35,3 +48,13 @@ export const quoteSchema = z.object({
 });
 
 export type QuoteFormValues = z.infer<typeof quoteSchema>;
+
+export type QuoteEmailAttachment = {
+  content: Buffer;
+  contentType: string;
+  filename: string;
+};
+
+export type QuoteEmailPayload = QuoteFormValues & {
+  attachments?: QuoteEmailAttachment[];
+};

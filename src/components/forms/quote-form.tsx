@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -19,7 +19,11 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { services, serviceOptions, urgencyOptions } from "@/data/site";
-import { quoteSchema, type QuoteFormValues } from "@/lib/form-schemas";
+import {
+  quoteAttachmentConfig,
+  quoteSchema,
+  type QuoteFormValues,
+} from "@/lib/form-schemas";
 
 function resolveServiceValue(rawValue: string | null) {
   if (!rawValue) {
@@ -37,6 +41,8 @@ export function QuoteForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedService = resolveServiceValue(searchParams.get("servizio"));
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -70,12 +76,30 @@ export function QuoteForm() {
   }, [selectedService, setValue]);
 
   const onSubmit = async (values: QuoteFormValues) => {
+    if (fileError) {
+      toast.error("Controlla le foto allegate", {
+        description: fileError,
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.set("name", values.name);
+    formData.set("phone", values.phone);
+    formData.set("email", values.email);
+    formData.set("service", values.service);
+    formData.set("urgency", values.urgency);
+    formData.set("area", values.area);
+    formData.set("description", values.description);
+    formData.set("privacy", String(values.privacy));
+
+    for (const file of selectedFiles) {
+      formData.append("photos", file);
+    }
+
     const response = await fetch("/api/quote", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
+      body: formData,
     });
 
     const result = (await response.json()) as { ok: boolean; error?: string };
@@ -101,6 +125,22 @@ export function QuoteForm() {
     router.push(`/preventivo/grazie?${params.toString()}`);
   };
 
+  const onFilesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files ?? []);
+    const validationError = validateSelectedFiles(files);
+
+    setFileError(validationError);
+
+    if (validationError) {
+      setSelectedFiles([]);
+      event.target.value = "";
+      return;
+    }
+
+    setSelectedFiles(files);
+  };
+
+  // @ts-ignore
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
@@ -185,6 +225,27 @@ export function QuoteForm() {
         ) : null}
       </div>
       <div className="space-y-2">
+        <Label htmlFor="quote-photos">Foto del problema o dell'impianto</Label>
+        <Input
+          id="quote-photos"
+          type="file"
+          accept={quoteAttachmentConfig.acceptedFileExtensions.join(",")}
+          multiple
+          onChange={onFilesChange}
+        />
+        <p className="text-sm text-muted-foreground">
+          Puoi allegare fino a {quoteAttachmentConfig.maxFiles} foto in formato JPG, PNG, WEBP o
+          HEIC, massimo 20 MB ciascuna.
+        </p>
+        {selectedFiles.length > 0 ? (
+          <p className="text-sm text-muted-foreground">
+            {selectedFiles.length} foto selezionate:{" "}
+            {selectedFiles.map((file) => file.name).join(", ")}
+          </p>
+        ) : null}
+        {fileError ? <p className="text-sm text-red-600">{fileError}</p> : null}
+      </div>
+      <div className="space-y-2">
         <label className="flex items-start gap-3 rounded-2xl border border-border bg-secondary/50 p-4 text-sm">
           <input
             type="checkbox"
@@ -206,4 +267,22 @@ export function QuoteForm() {
       </Button>
     </form>
   );
+}
+
+function validateSelectedFiles(files: File[]) {
+  if (files.length > quoteAttachmentConfig.maxFiles) {
+    return `Puoi selezionare fino a ${quoteAttachmentConfig.maxFiles} foto.`;
+  }
+
+  for (const file of files) {
+    if (!quoteAttachmentConfig.acceptedMimeTypes.includes(file.type as never)) {
+      return "Carica solo immagini JPG, PNG, WEBP o HEIC.";
+    }
+
+    if (file.size > quoteAttachmentConfig.maxFileSize) {
+      return "Ogni foto deve essere al massimo di 20 MB.";
+    }
+  }
+
+  return null;
 }

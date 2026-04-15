@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 import { siteConfig } from "@/lib/site";
-import type { ContactFormValues, QuoteFormValues } from "@/lib/form-schemas";
+import type { ContactFormValues, QuoteEmailPayload } from "@/lib/form-schemas";
 
 const smtpHost = process.env.SMTP_HOST;
 const smtpPort = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 465;
@@ -32,7 +32,7 @@ function createTransporter() {
 }
 
 function recipient() {
-  return process.env.MAIL_TO ?? "emilio.deleonardis@gmail.com";
+  return process.env.MAIL_TO ?? "info@phoenixelettronica.net";
 }
 
 function sender() {
@@ -69,16 +69,18 @@ export async function sendContactEmail(data: ContactFormValues) {
   });
 }
 
-export async function sendQuoteEmail(data: QuoteFormValues) {
+export async function sendQuoteEmail(data: QuoteEmailPayload) {
   const transporter = createTransporter();
   const from = sender();
   const to = recipient();
+  const attachments = data.attachments ?? [];
 
   await Promise.all([
     transporter.sendMail({
       from,
       to,
       replyTo: data.email,
+      attachments,
       subject: `[Preventivo] Nuovo preventivo - ${data.service} - ${data.name}`,
       text: [
         "Nuovo preventivo ricevuto dal sito",
@@ -89,6 +91,7 @@ export async function sendQuoteEmail(data: QuoteFormValues) {
         `Servizio: ${data.service}`,
         `Urgenza: ${data.urgency}`,
         `Zona: ${data.area}`,
+        `Foto allegate: ${attachments.length}`,
         "",
         "Descrizione:",
         data.description,
@@ -101,6 +104,7 @@ export async function sendQuoteEmail(data: QuoteFormValues) {
         <p><strong>Servizio:</strong> ${escapeHtml(data.service)}</p>
         <p><strong>Urgenza:</strong> ${escapeHtml(data.urgency)}</p>
         <p><strong>Zona:</strong> ${escapeHtml(data.area)}</p>
+        <p><strong>Foto allegate:</strong> ${attachments.length}</p>
         <p><strong>Descrizione:</strong></p>
         <p>${escapeHtml(data.description).replace(/\n/g, "<br />")}</p>
       `,

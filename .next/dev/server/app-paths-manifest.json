@@ -1,11 +1,6 @@
 {
-  "/[localSlug]/page": "app/[localSlug]/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
   "/apple-icon/route": "app/apple-icon/route.js",
-  "/chi-siamo/page": "app/chi-siamo/page.js",
-  "/contatti/page": "app/contatti/page.js",
   "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
   "/page": "app/page.js",
-  "/preventivo/page": "app/preventivo/page.js",
-  "/servizi/page": "app/servizi/page.js"
+  "/preventivo/page": "app/preventivo/page.js"
 }

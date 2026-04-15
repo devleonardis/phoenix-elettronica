@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/elettricista-bari":{},"/videosorveglianza-bari":{},"/citofonia-videocitofonia-bari":{},"/automazioni-cancelli-porte-bari":{},"/cablaggio-reti-lan-bari":{},"/manutenzione-condomini-bari":{}},"dynamicRoutes":{"/[localSlug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":false,"fallbackRevalidate":false,"fallbackSourceRoute":"/[localSlug]","routeRegex":"^\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"d52e83a02bd0c938ef2c04a34e97929c","previewModeSigningKey":"c57292e951f11c29bf4cfe1d3c9050b9d75969ccae1ed64d898e8494fb28166a","previewModeEncryptionKey":"8890b6470e8e42f1b8ba2da948fb3cfaeef013880878f6ab3cddf18f0a232512"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "7bdd3e67649e411c1504570ac3e19cee",
+    "previewModeSigningKey": "75693b11fb1c10c84d4571219adf757888afa2be67c6c53447171fabc4af5d52",
+    "previewModeEncryptionKey": "261d808e503a0ed65a186106989684bfe3e810690dbb30f9eac28ae02ae72fb1"
+  }
+}
